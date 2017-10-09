@@ -11,22 +11,25 @@
 	<canvas></canvas>
 	<script src="lib/util.js"></script>
 	<script src="lib/arrow.js"></script>
+	<script src="lib/ball.js"></script>
 	<script>
 	var canvas = document.querySelector('canvas');
 	var ctx = canvas.getContext('2d');
 	var mouse = util.captureMouse(canvas);
-	var arrow = new Arrow();
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
-	arrow.x = canvas.width / 2;
-	arrow.y = canvas.height / 2;
-	arrow.draw(ctx);
+	
+	var range = 200;
+	var angle = 0;
+	var ball = new Ball();
 
+	ball.x = canvas.width / 2;
 	(function loop() {
 		requestAnimationFrame(loop);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		arrow.rotation = Math.atan2(mouse.y - arrow.y, mouse.x - arrow.x) / Math.PI * 180;
-		arrow.draw(ctx);
+		ball.y = Math.sin(angle) * range + canvas.height / 2;
+		ball.draw(ctx);
+		angle += 0.05;
 	})();
 	</script>
 </body>
